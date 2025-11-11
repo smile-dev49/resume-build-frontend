@@ -1,17 +1,14 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import axios from 'axios'
-import apiService from '../services/api'
 
 interface User {
-  id: string
-  email: string
-  name?: string
+  username: string
 }
 
 interface AuthContextType {
   user: User | null
   token: string | null
-  login: (username: string, password: string) => Promise<void>
+  login: (token: string, user: User) => void
   logout: () => void
   isLoading: boolean
   isAuthenticated: boolean
@@ -41,22 +38,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false)
   }, [])
 
-  const login = async (username: string, password: string) => {
-    try {
-      const response = await apiService.login(username, password)
-      
-      const { token: authToken, user: userData } = response.data
-      
-      setToken(authToken)
-      setUser(userData)
-      
-      localStorage.setItem('auth_token', authToken)
-      localStorage.setItem('auth_user', JSON.stringify(userData))
-      
-      axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
-    } catch (error) {
-      throw new Error('Login failed')
-    }
+  const login = (authToken: string, userData: User) => {
+    setToken(authToken)
+    setUser(userData)
+
+    localStorage.setItem('auth_token', authToken)
+    localStorage.setItem('auth_user', JSON.stringify(userData))
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
   }
 
   const logout = () => {

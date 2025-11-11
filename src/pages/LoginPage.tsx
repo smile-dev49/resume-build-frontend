@@ -23,7 +23,12 @@ const LoginPage = () => {
   const [pendingCredentials, setPendingCredentials] = useState<LoginForm | null>(null)
   const [isResending, setIsResending] = useState(false)
 
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>()
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
+    defaultValues: {
+      username: 'rusuland9@gmail.com',
+      password: 'rusuland',
+    },
+  })
   const { register: registerOtp, handleSubmit: handleSubmitOtp, formState: { errors: otpErrors }, reset: resetOtpForm } = useForm<OTPForm>()
 
   const from = location.state?.from?.pathname || '/'
@@ -31,14 +36,17 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginForm) => {
     try {
       setIsSubmitting(true)
-      await apiService.requestOtp(data.username, data.password)
+      // Verify credentials via signin first
+      await apiService.login(data.username, data.password)
+
       setPendingCredentials(data)
       setStep('otp')
       resetOtpForm()
       toast.success('Verification code sent to your email')
     } catch (error) {
       console.error(error)
-      if (error && typeof error === 'object' && 'response' in error && (error as any).response?.status === 401) {
+      const status = (error as any)?.response?.status
+      if (status === 401) {
         toast.error('Invalid email or password')
       } else {
         toast.error('Failed to send verification code')
@@ -56,8 +64,9 @@ const LoginPage = () => {
 
     try {
       setIsSubmitting(true)
-      await apiService.verifyOtp(pendingCredentials.username, data.code)
-      await login(pendingCredentials.username, pendingCredentials.password)
+      const response = await apiService.verifyOtp(pendingCredentials.username, data.code)
+      const { token, user } = response.data
+      login(token, user)
       toast.success('Login successful!')
       navigate(from, { replace: true })
     } catch (error) {
