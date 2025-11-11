@@ -72,6 +72,14 @@
     async login(username: string, password: string): Promise<AxiosResponse<{token: string, user: any}>> {
       return this.api.post('/signin', { username, password })
     }
+
+    async requestOtp(email: string): Promise<AxiosResponse<{ message: string }>> {
+      return this.api.post('/auth/request-otp', { email })
+    }
+
+    async verifyOtp(email: string, code: string): Promise<AxiosResponse<{ message: string }>> {
+      return this.api.post('/auth/verify-otp', { email, code })
+    }
   }
 
   export const apiService = new ApiService()

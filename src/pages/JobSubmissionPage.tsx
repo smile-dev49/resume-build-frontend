@@ -26,7 +26,7 @@ const JobSubmissionPage = () => {
       questions: [''],
       template: '',
       language: 'en',
-      cover_letter_only: true,
+      cover_letter_only: false,
     },
   })
 
@@ -60,6 +60,7 @@ const JobSubmissionPage = () => {
       }
 
       // Submit the job data as JSON
+      console.log(jobData)
       const response = await apiService.post('/tailor-resume', jobData)
 
       // Navigate to results page
@@ -131,11 +132,11 @@ const JobSubmissionPage = () => {
                     id="cover_letter_only"
                     className="input-field"
                     {...register('cover_letter_only', {
-                      setValueAs: (value) => value === 'true',
+                      setValueAs: (value) => value === 'false',
                     })}
                   >
-                    <option value="true">Cover letter only</option>
-                    <option value="false">Resume + cover letter</option>
+                    <option value="false">Cover letter only</option>
+                    <option value="true">Resume + cover letter</option>
                   </select>
                 </div>
               </div>
