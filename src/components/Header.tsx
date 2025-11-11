@@ -74,9 +74,6 @@ const Header = () => {
             </nav>
             
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600 hidden sm:inline">
-                Welcome, {user?.username}
-              </span>
               <button
                 onClick={handleLogout}
                 className="text-gray-600 hover:text-red-600 transition-colors text-sm"
