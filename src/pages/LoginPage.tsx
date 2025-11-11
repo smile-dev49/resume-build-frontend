@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -22,6 +22,9 @@ const LoginPage = () => {
   const [step, setStep] = useState<'credentials' | 'otp'>('credentials')
   const [pendingCredentials, setPendingCredentials] = useState<LoginForm | null>(null)
   const [isResending, setIsResending] = useState(false)
+  const OTP_LENGTH = 6
+  const [otpDigits, setOtpDigits] = useState<string[]>(Array(OTP_LENGTH).fill(''))
+  const otpInputsRef = useRef<HTMLInputElement[]>([])
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
     defaultValues: {
@@ -29,9 +32,67 @@ const LoginPage = () => {
       password: 'rusuland',
     },
   })
-  const { register: registerOtp, handleSubmit: handleSubmitOtp, formState: { errors: otpErrors }, reset: resetOtpForm } = useForm<OTPForm>()
+  const { register: registerOtp, handleSubmit: handleSubmitOtp, formState: { errors: otpErrors }, reset: resetOtpForm, setValue: setOtpFormValue } = useForm<OTPForm>()
 
   const from = location.state?.from?.pathname || '/'
+
+  useEffect(() => {
+    setOtpFormValue('code', otpDigits.join(''), { shouldValidate: true })
+  }, [otpDigits, setOtpFormValue])
+
+  const focusOtpInput = (index: number) => {
+    otpInputsRef.current[index]?.focus()
+  }
+
+  const handleOtpChange = (index: number, rawValue: string) => {
+    const clean = rawValue.replace(/[^0-9]/g, '')
+    const digit = clean.slice(-1)
+
+    setOtpDigits((prev) => {
+      const next = [...prev]
+      next[index] = digit
+      if (!digit) {
+        next[index] = ''
+      }
+      return next
+    })
+
+    if (digit && index < OTP_LENGTH - 1) {
+      setTimeout(() => focusOtpInput(index + 1), 0)
+    }
+  }
+
+  const handleOtpBackspace = (index: number) => {
+    setOtpDigits((prev) => {
+      const next = [...prev]
+      if (next[index]) {
+        next[index] = ''
+      } else if (index > 0) {
+        next[index - 1] = ''
+        setTimeout(() => focusOtpInput(index - 1), 0)
+      }
+      return next
+    })
+  }
+
+  const handleOtpPaste = (event: React.ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    const pasted = event.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, OTP_LENGTH)
+    if (!pasted) return
+
+    setOtpDigits((prev) => {
+      const next = [...prev]
+      pasted.split('').forEach((char, idx) => {
+        if (idx < OTP_LENGTH) {
+          next[idx] = char
+        }
+      })
+      return next
+    })
+
+    const nextIndex = Math.min(pasted.length, OTP_LENGTH - 1)
+    setTimeout(() => focusOtpInput(nextIndex), 0)
+  }
 
   const onSubmit = async (data: LoginForm) => {
     try {
@@ -41,7 +102,10 @@ const LoginPage = () => {
 
       setPendingCredentials(data)
       setStep('otp')
+      setOtpDigits(Array(OTP_LENGTH).fill(''))
       resetOtpForm()
+      setOtpFormValue('code', '')
+      setTimeout(() => focusOtpInput(0), 0)
       toast.success('Verification code sent to your email')
     } catch (error) {
       console.error(error)
@@ -85,6 +149,9 @@ const LoginPage = () => {
     try {
       setIsResending(true)
       await apiService.requestOtp(pendingCredentials.username, pendingCredentials.password)
+      setOtpDigits(Array(OTP_LENGTH).fill(''))
+      setOtpFormValue('code', '')
+      setTimeout(() => focusOtpInput(0), 0)
       toast.success('Verification code resent')
     } catch (error) {
       console.error(error)
@@ -168,19 +235,37 @@ const LoginPage = () => {
               <label htmlFor="otp" className="sr-only">
                 Verification code
               </label>
+              <div className="flex items-center justify-between gap-2">
+                {otpDigits.map((digit, index) => (
+                  <input
+                    key={index}
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={1}
+                    className="w-12 h-12 text-center text-lg font-medium border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    value={digit}
+                    onChange={(event) => handleOtpChange(index, event.target.value)}
+                    onPaste={handleOtpPaste}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Backspace') {
+                        event.preventDefault()
+                        handleOtpBackspace(index)
+                      }
+                    }}
+                    ref={(element) => {
+                      if (element) {
+                        otpInputsRef.current[index] = element
+                      }
+                    }}
+                  />
+                ))}
+              </div>
               <input
-                id="otp"
-                type="text"
-                inputMode="numeric"
-                maxLength={6}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm tracking-[0.75em]"
-                placeholder="Enter 6-digit code"
+                id="otp-hidden"
+                type="hidden"
                 {...registerOtp('code', {
                   required: 'Verification code is required',
-                  pattern: {
-                    value: /^[0-9]{6}$/,
-                    message: 'Code must be 6 digits'
-                  }
+                  validate: (value) => /^[0-9]{6}$/.test(value.trim()) || 'Code must be 6 digits'
                 })}
               />
               {otpErrors.code && (
@@ -203,6 +288,8 @@ const LoginPage = () => {
                   setStep('credentials')
                   setPendingCredentials(null)
                   setIsSubmitting(false)
+                  setOtpDigits(Array(OTP_LENGTH).fill(''))
+                  setOtpFormValue('code', '')
                 }}
                 className="text-sm text-gray-500 hover:text-gray-700"
               >
