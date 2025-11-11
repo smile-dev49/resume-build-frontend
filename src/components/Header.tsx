@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 const Header = () => {
-  const { isAuthenticated, user, logout } = useAuth()
+  const { isAuthenticated, logout } = useAuth()
   const location = useLocation()
 
   const handleLogout = () => {
