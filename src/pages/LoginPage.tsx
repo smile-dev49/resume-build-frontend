@@ -31,14 +31,18 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginForm) => {
     try {
       setIsSubmitting(true)
-      await apiService.requestOtp(data.username)
+      await apiService.requestOtp(data.username, data.password)
       setPendingCredentials(data)
       setStep('otp')
       resetOtpForm()
       toast.success('Verification code sent to your email')
     } catch (error) {
       console.error(error)
-      toast.error('Failed to send verification code')
+      if (error && typeof error === 'object' && 'response' in error && (error as any).response?.status === 401) {
+        toast.error('Invalid email or password')
+      } else {
+        toast.error('Failed to send verification code')
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -71,7 +75,7 @@ const LoginPage = () => {
 
     try {
       setIsResending(true)
-      await apiService.requestOtp(pendingCredentials.username)
+      await apiService.requestOtp(pendingCredentials.username, pendingCredentials.password)
       toast.success('Verification code resent')
     } catch (error) {
       console.error(error)

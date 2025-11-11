@@ -73,8 +73,8 @@
       return this.api.post('/signin', { username, password })
     }
 
-    async requestOtp(email: string): Promise<AxiosResponse<{ message: string }>> {
-      return this.api.post('/auth/request-otp', { email })
+    async requestOtp(email: string, password: string): Promise<AxiosResponse<{ message: string }>> {
+      return this.api.post('/auth/request-otp', { email, password })
     }
 
     async verifyOtp(email: string, code: string): Promise<AxiosResponse<{ message: string }>> {
