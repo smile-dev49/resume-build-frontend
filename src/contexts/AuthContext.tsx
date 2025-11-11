@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import axios from 'axios'
+import apiService from '../services/api'
 
 interface User {
   username: string
@@ -8,7 +9,7 @@ interface User {
 interface AuthContextType {
   user: User | null
   token: string | null
-  login: (token: string, user: User) => void
+  login: (username: string, password: string) => Promise<void>
   logout: () => void
   isLoading: boolean
   isAuthenticated: boolean
@@ -38,7 +39,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(false)
   }, [])
 
-  const login = (authToken: string, userData: User) => {
+  const login = async (username: string, password: string) => {
+    const response = await apiService.login(username, password)
+    const { token: authToken, user: userData } = response.data
+
     setToken(authToken)
     setUser(userData)
 

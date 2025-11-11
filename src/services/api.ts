@@ -69,16 +69,8 @@
       return this.api.patch(url, data, config)
     }
 
-    async login(username: string, password: string): Promise<AxiosResponse<{message: string, requires_otp: boolean}>> {
+    async login(username: string, password: string): Promise<AxiosResponse<{token: string, user: any}>> {
       return this.api.post('/signin', { username, password })
-    }
-
-    async requestOtp(email: string, password: string): Promise<AxiosResponse<{ message: string }>> {
-      return this.api.post('/auth/request-otp', { email, password })
-    }
-
-    async verifyOtp(email: string, code: string): Promise<AxiosResponse<{ token: string, user: any }>> {
-      return this.api.post('/auth/verify-otp', { email, code })
     }
   }
 
