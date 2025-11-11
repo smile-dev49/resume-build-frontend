@@ -75,7 +75,7 @@ const Header = () => {
             
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600 hidden sm:inline">
-                Welcome, {user?.email}
+                Welcome, {user?.username}
               </span>
               <button
                 onClick={handleLogout}
