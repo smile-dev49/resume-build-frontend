@@ -1,0 +1,54 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build application
+      run: npm run build
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.8.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_KEY }}
+
+    - name: Add server to known hosts
+      run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+    - name: Deploy to server
+      run: |
+        # Create target directory if it doesn't exist
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "mkdir -p /home/mi/easy/resumer-app"
+        
+        # Remove old files
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "rm -rf /home/mi/easy/resumer-app/*"
+        
+        # Upload new build files
+        scp -r dist/* ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/mi/easy/resumer-app/
+        
+        # Set proper permissions
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "chmod -R 755 /home/mi/easy/resumer-app"
+
+    - name: Verify deployment
+      run: |
+        echo "Deployment completed successfully!"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -la /home/mi/easy/resumer-app"
