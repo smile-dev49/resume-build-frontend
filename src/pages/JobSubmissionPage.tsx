@@ -80,16 +80,17 @@ const JobSubmissionPage = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card-body">
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Resume Template</h2>
-
-              <div className="card-footer flex justify-end">
-                <button
-                  type="submit"
-                  className="btn-primary py-2 px-6"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Processing...' : 'Create Tailored Resume & Cover Letter'}
-                </button>
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-semibold mb-4">Resume Template</h2>
+                <div className=" flex justify-end">
+                  <button
+                    type="submit"
+                    className="btn-primary py-2 px-6"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Processing...' : 'Create'}
+                  </button>
+                </div>
               </div>
 
               <div className="mb-4">
@@ -199,7 +200,7 @@ const JobSubmissionPage = () => {
               className="btn-primary py-2 px-6"
               disabled={isSubmitting}
             >
-              {isSubmitting ? 'Processing...' : 'Create Tailored Resume & Cover Letter'}
+              {isSubmitting ? 'Processing...' : 'Create'}
             </button>
           </div>
         </form>
