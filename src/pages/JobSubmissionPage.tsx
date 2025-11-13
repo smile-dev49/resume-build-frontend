@@ -122,6 +122,7 @@ const JobSubmissionPage = () => {
                   >
                     <option value="en">English</option>
                     <option value="ja">日本語 (Japanese)</option>
+                    <option value="uk">Українська (Ukrainian)</option>
                   </select>
                 </div>
                 <div>

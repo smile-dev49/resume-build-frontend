@@ -109,7 +109,7 @@ const ResultsPage = () => {
         </p>
         {data.language && (
           <p className="text-sm text-gray-500 mt-2">
-            Output language: {data.language === 'ja' ? 'Japanese' : 'English'}
+            Output language: {data.language === 'ja' ? 'Japanese' : data.language === 'uk' ? 'Ukrainian' : 'English'}
           </p>
         )}
       </div>
