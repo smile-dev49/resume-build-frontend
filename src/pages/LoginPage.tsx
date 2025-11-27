@@ -17,8 +17,8 @@ const LoginPage = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginForm>({
     defaultValues: {
-      username: 'rusuland',
-      password: '20030807',
+      username: 'rusuland9@gmail.com',
+      password: '',
     },
   })
 
