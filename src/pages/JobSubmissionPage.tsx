@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, useFieldArray } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -10,6 +10,8 @@ const JobSubmissionPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [templates, setTemplates] = useState([]);
+  const clickCountRef = useRef(0)
+  const clickTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const fetchTemplates = async () => {
     const { data } = await apiService.get('/templates');
@@ -19,6 +21,14 @@ const JobSubmissionPage = () => {
   useEffect(() => {
     fetchTemplates();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current)
+      }
+    }
+  }, [])
 
   const { register, control, handleSubmit, formState: { errors } } = useForm<SimpleJobSubmission>({
     defaultValues: {
@@ -154,6 +164,28 @@ const JobSubmissionPage = () => {
                   {...register('job_description', {
                     required: 'Job description is required'
                   })}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault()
+                      handleSubmit(onSubmit)()
+                    }
+                  }}
+                  onClick={() => {
+                    clickCountRef.current += 1
+                    
+                    if (clickTimeoutRef.current) {
+                      clearTimeout(clickTimeoutRef.current)
+                    }
+                    
+                    if (clickCountRef.current === 3) {
+                      clickCountRef.current = 0
+                      handleSubmit(onSubmit)()
+                    } else {
+                      clickTimeoutRef.current = setTimeout(() => {
+                        clickCountRef.current = 0
+                      }, 500)
+                    }
+                  }}
                 ></textarea>
                 {errors.job_description && (
                   <p className="text-red-500 text-xs mt-1">{errors.job_description.message}</p>
