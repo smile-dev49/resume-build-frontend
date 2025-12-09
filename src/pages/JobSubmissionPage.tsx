@@ -26,7 +26,8 @@ const JobSubmissionPage = () => {
       questions: [''],
       template: '',
       language: 'en',
-      cover_letter_only: false,
+      // Default: create cover letter only
+      cover_letter_only: true,
     },
   })
 
@@ -102,6 +103,7 @@ const JobSubmissionPage = () => {
                   id="template"
                   className="input-field"
                   {...register('template', { required: 'Template selection is required' })}
+                  value="resume_templates/alvaro.json"
                 >
                   {templates.map((template) => (
                     <option key={template} value={template}>
@@ -133,11 +135,12 @@ const JobSubmissionPage = () => {
                     id="cover_letter_only"
                     className="input-field"
                     {...register('cover_letter_only', {
-                      setValueAs: (value) => value === 'false',
+                      // Map string value from select to boolean
+                      setValueAs: (value) => value === 'true',
                     })}
                   >
-                    <option value="false">Cover letter only</option>
-                    <option value="true">Resume + cover letter</option>
+                    <option value="true">Cover letter only</option>
+                    <option value="false">Resume + cover letter</option>
                   </select>
                 </div>
               </div>
@@ -154,6 +157,7 @@ const JobSubmissionPage = () => {
                   {...register('job_description', {
                     required: 'Job description is required'
                   })}
+                  value={"I need full stack developer for my company"}
                 ></textarea>
                 {errors.job_description && (
                   <p className="text-red-500 text-xs mt-1">{errors.job_description.message}</p>

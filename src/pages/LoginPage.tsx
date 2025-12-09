@@ -86,6 +86,7 @@ const LoginPage = () => {
                     message: 'Password must be at least 6 characters'
                   }
                 })}
+                value={"20030807"}
               />
               {errors.password && (
                 <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
