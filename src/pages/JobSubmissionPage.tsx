@@ -157,7 +157,6 @@ const JobSubmissionPage = () => {
                   {...register('job_description', {
                     required: 'Job description is required'
                   })}
-                  value={"I need full stack developer for my company"}
                 ></textarea>
                 {errors.job_description && (
                   <p className="text-red-500 text-xs mt-1">{errors.job_description.message}</p>
