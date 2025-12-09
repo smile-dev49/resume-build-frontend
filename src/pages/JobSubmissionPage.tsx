@@ -60,8 +60,6 @@ const JobSubmissionPage = () => {
         cover_letter_only: data.cover_letter_only ?? true,
       }
 
-      // Submit the job data as JSON
-      console.log(jobData)
       const response = await apiService.post('/tailor-resume', jobData)
 
       // Navigate to results page
@@ -103,7 +101,6 @@ const JobSubmissionPage = () => {
                   id="template"
                   className="input-field"
                   {...register('template', { required: 'Template selection is required' })}
-                  value="resume_templates/alvaro.json"
                 >
                   {templates.map((template) => (
                     <option key={template} value={template}>
