@@ -2,7 +2,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear()
   
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-gray-800 dark:bg-gray-900 text-white py-8 transition-colors duration-200">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
@@ -23,12 +23,12 @@ const Footer = () => {
               </svg>
               <span className="text-lg font-bold">Resumer</span>
             </div>
-            <p className="text-gray-400 text-sm mt-2 text-center md:text-left">
+            <p className="text-gray-400 dark:text-gray-500 text-sm mt-2 text-center md:text-left">
               Customize your resume for job applications using AI
             </p>
           </div>
           <div className="text-center md:text-right">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 dark:text-gray-500 text-sm">
               &copy; {currentYear} Resumer. All rights reserved.
             </p>
           </div>

@@ -74,14 +74,14 @@ const JobSubmissionPage = () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">Create Your Tailored Resume</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center text-gray-900 dark:text-gray-100">Create Your Tailored Resume</h1>
 
       <div className="card">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="card-body">
             <div className="mb-8">
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold mb-4">Resume Template</h2>
+                <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Resume Template</h2>
                 <div className=" flex justify-end">
                   <button
                     type="submit"
@@ -94,7 +94,7 @@ const JobSubmissionPage = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="template">
+                <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="template">
                   Select a template
                 </label>
                 <select
@@ -111,7 +111,7 @@ const JobSubmissionPage = () => {
               </div>
               <div className="mb-4 grid gap-4 md:grid-cols-2">
                 <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="language">
+                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="language">
                     Output language
                   </label>
                   <select
@@ -125,7 +125,7 @@ const JobSubmissionPage = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="cover_letter_only">
+                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="cover_letter_only">
                     Document output
                   </label>
                   <select
@@ -142,9 +142,9 @@ const JobSubmissionPage = () => {
                 </div>
               </div>
 
-              <h2 className="text-xl font-semibold mb-4">Job Description</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Job Description</h2>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="job_description">
+                <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="job_description">
                   Paste the job description below
                 </label>
                 <textarea
@@ -156,14 +156,14 @@ const JobSubmissionPage = () => {
                   })}
                 ></textarea>
                 {errors.job_description && (
-                  <p className="text-red-500 text-xs mt-1">{errors.job_description.message}</p>
+                  <p className="text-red-500 dark:text-red-400 text-xs mt-1">{errors.job_description.message}</p>
                 )}
               </div>
             </div>
 
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Application Questions (Optional)</h2>
-              <p className="text-gray-600 mb-4">
+              <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Application Questions (Optional)</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
                 Add any questions from the job application that you'd like AI to help answer based on your resume.
               </p>
 

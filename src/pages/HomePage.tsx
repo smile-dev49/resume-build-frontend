@@ -5,10 +5,10 @@ const HomePage = () => {
     <div className="max-w-5xl mx-auto">
       <section className="py-12 md:py-20">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Your AI-Powered Resume & Interview Assistant
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
             Customize your resume, generate cover letters, and prepare interview answers
             tailored to job descriptions using AI technology.
           </p>
@@ -18,20 +18,20 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="py-12 bg-white rounded-xl shadow-md">
+      <section className="py-12 bg-white dark:bg-gray-800 rounded-xl shadow-md transition-colors duration-200">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">How It Works</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Our AI assistant analyzes job descriptions and optimizes your application materials
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 px-6">
           <div className="text-center">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-primary-600"
+                className="h-8 w-8 text-primary-600 dark:text-primary-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -44,17 +44,17 @@ const HomePage = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Upload Your Resume</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Upload Your Resume</h3>
+            <p className="text-gray-600 dark:text-gray-400">
               Start with your existing resume or let us use our template
             </p>
           </div>
 
           <div className="text-center">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-primary-600"
+                className="h-8 w-8 text-primary-600 dark:text-primary-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -67,17 +67,17 @@ const HomePage = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Add Job Details</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Add Job Details</h3>
+            <p className="text-gray-600 dark:text-gray-400">
               Paste the job description or provide a link to the job posting
             </p>
           </div>
 
           <div className="text-center">
-            <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8 text-primary-600"
+                className="h-8 w-8 text-primary-600 dark:text-primary-400"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -90,8 +90,8 @@ const HomePage = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Get Optimized Results</h3>
-            <p className="text-gray-600">
+            <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Get Optimized Results</h3>
+            <p className="text-gray-600 dark:text-gray-400">
               Receive a tailored resume, cover letter, and interview prep materials
             </p>
           </div>
@@ -100,8 +100,8 @@ const HomePage = () => {
 
       <section className="py-12 my-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Features</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Features</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Everything you need to improve your job application process
           </p>
         </div>
@@ -110,10 +110,10 @@ const HomePage = () => {
           <div className="card">
             <div className="p-6">
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-primary-600"
+                    className="h-6 w-6 text-primary-600 dark:text-primary-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -126,9 +126,9 @@ const HomePage = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold">Resume Customization</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Resume Customization</h3>
               </div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Our AI analyzes job descriptions and tailors your resume to highlight relevant skills and experience,
                 improving your chances of making it through applicant tracking systems.
               </p>
@@ -138,10 +138,10 @@ const HomePage = () => {
           <div className="card">
             <div className="p-6">
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-primary-600"
+                    className="h-6 w-6 text-primary-600 dark:text-primary-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -154,9 +154,9 @@ const HomePage = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold">Cover Letter Generation</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Cover Letter Generation</h3>
               </div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Generate professional, personalized cover letters that complement your resume and
                 address specific job requirements without spending hours writing them yourself.
               </p>
@@ -166,10 +166,10 @@ const HomePage = () => {
           <div className="card">
             <div className="p-6">
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-primary-600"
+                    className="h-6 w-6 text-primary-600 dark:text-primary-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -182,9 +182,9 @@ const HomePage = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold">Interview Answer Preparation</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Interview Answer Preparation</h3>
               </div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Prepare for interviews with AI-generated answers to common questions, tailored to your
                 experience and the specific job requirements.
               </p>
@@ -194,10 +194,10 @@ const HomePage = () => {
           <div className="card">
             <div className="p-6">
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mr-4">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6 text-primary-600"
+                    className="h-6 w-6 text-primary-600 dark:text-primary-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -216,9 +216,9 @@ const HomePage = () => {
                     />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold">Competitive Analysis</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Competitive Analysis</h3>
               </div>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Get insights into the company, its competitors, and strategies to stand out during
                 the application and interview process.
               </p>
@@ -228,7 +228,7 @@ const HomePage = () => {
       </section>
 
       <section className="py-12 text-center">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Ready to Optimize Your Job Applications?</h2>
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Ready to Optimize Your Job Applications?</h2>
         <Link to="/submit-job" className="btn-primary py-3 px-8 text-lg">
           Get Started Now
         </Link>

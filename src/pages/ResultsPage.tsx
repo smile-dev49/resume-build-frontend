@@ -82,8 +82,8 @@ const ResultsPage = () => {
   if (!data) {
     return (
       <div className="text-center py-12">
-        <h1 className="text-2xl font-bold text-gray-800 mb-4">Results Not Found</h1>
-        <p className="text-gray-600 mb-8">The requested results could not be found or have expired.</p>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">Results Not Found</h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-8">The requested results could not be found or have expired.</p>
         <Link to="/submit-job" className="btn-primary">
           Create New Resume
         </Link>
@@ -103,29 +103,29 @@ const ResultsPage = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold mb-2">Your Application Materials</h1>
-        <p className="text-gray-600">
+        <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-gray-100">Your Application Materials</h1>
+        <p className="text-gray-600 dark:text-gray-400">
           Your resume, cover letter, and answers have been tailored to match the job description
         </p>
         {data.language && (
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
             Output language: {data.language === 'ja' ? 'Japanese' : data.language === 'uk' ? 'Ukrainian' : 'English'}
           </p>
         )}
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 mb-6">
+      <div className="flex border-b border-gray-200 dark:border-gray-700 mb-6">
         {hasResume && (
           <button
-            className={`py-2 px-4 font-medium ${activeTab === 'resume' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+            className={`py-2 px-4 font-medium ${activeTab === 'resume' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
             onClick={() => setActiveTab('resume')}
           >
             Resume
           </button>
         )}
         <button
-          className={`py-2 px-4 font-medium ${activeTab === 'answers' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500 hover:text-gray-700'}`}
+          className={`py-2 px-4 font-medium ${activeTab === 'answers' ? 'text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}
           onClick={() => setActiveTab('answers')}
         >
           Cover Letter & Answers
@@ -133,13 +133,13 @@ const ResultsPage = () => {
       </div>
 
       {/* Content */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md dark:shadow-gray-900/50 overflow-hidden p-6 transition-colors duration-200">
         {/* Resume Tab */}
         {activeTab === 'resume' && (
           hasResume ? (
             <>
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold">Tailored Resume</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Tailored Resume</h2>
                 <a
                   href={apiService.downloadUrl(data.resume_url!, true)}
                   target="_blank"
@@ -151,8 +151,8 @@ const ResultsPage = () => {
                   Download PDF
                 </a>
               </div>
-              <div className="border border-gray-200 rounded p-4 bg-gray-50">
-                <div className="aspect-[8.5/11] bg-white mx-auto shadow-lg">
+              <div className="border border-gray-200 dark:border-gray-700 rounded p-4 bg-gray-50 dark:bg-gray-900">
+                <div className="aspect-[8.5/11] bg-white dark:bg-gray-800 mx-auto shadow-lg">
                   <iframe
                     src={apiService.downloadUrl(data.resume_url!)}
                     className="w-full h-full"
@@ -162,9 +162,9 @@ const ResultsPage = () => {
               </div>
             </>
           ) : (
-            <div className="text-center text-gray-600">
+            <div className="text-center text-gray-600 dark:text-gray-400">
               <p className="mb-2 font-medium">Resume generation was skipped for this request.</p>
-              <p className="text-sm">Select “Resume + cover letter” on the submission form if you need a resume PDF next time.</p>
+              <p className="text-sm">Select "Resume + cover letter" on the submission form if you need a resume PDF next time.</p>
             </div>
           )
         )}
@@ -176,7 +176,7 @@ const ResultsPage = () => {
             {data.cover_letter_url && (
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold">Cover Letter</h2>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Cover Letter</h2>
                   <a
                     href={apiService.downloadUrl(data.cover_letter_url, true)}
                     target="_blank" 
@@ -189,19 +189,19 @@ const ResultsPage = () => {
                   </a>
                 </div>
                 
-                <div id="cover-letter-content" className="prose prose-sm max-w-none border border-gray-200 rounded-lg p-6 bg-white">
+                <div id="cover-letter-content" className="prose prose-sm max-w-none border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
                   {loadingCoverLetter ? (
-                    <p className="text-center text-gray-500">Loading cover letter content...</p>
+                    <p className="text-center text-gray-500 dark:text-gray-400">Loading cover letter content...</p>
                   ) : coverLetterContent ? (
                     renderMarkdown(coverLetterContent)
                   ) : (
-                    <p className="text-center text-gray-500">No cover letter content available</p>
+                    <p className="text-center text-gray-500 dark:text-gray-400">No cover letter content available</p>
                   )}
                 </div>
                 
                 <div className="flex justify-end mt-4">
                   <button
-                    className="text-blue-600 text-sm font-medium hover:text-blue-800 flex items-center"
+                    className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:text-blue-800 dark:hover:text-blue-300 flex items-center"
                     onClick={() => {
                       // Get the content from the cover-letter-content div, excluding any loading message
                       const coverLetterContent = document.getElementById('cover-letter-content');
@@ -228,22 +228,22 @@ const ResultsPage = () => {
             {data.answers && data.answers.length > 0 && (
               <div className="mt-8">
                 <div className="mb-4">
-                  <h2 className="text-xl font-semibold">Application Question Answers</h2>
-                  <p className="text-gray-600 mt-1">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Application Question Answers</h2>
+                  <p className="text-gray-600 dark:text-gray-400 mt-1">
                     Use these AI-generated answers as a starting point for your application.
                   </p>
                 </div>
                 <div className="space-y-6">
                   {data.answers.map((answer, index) => (
-                    <div key={index} className="border border-gray-200 rounded-lg p-4">
-                      <div className="font-medium text-gray-800 mb-2">Question {index + 1}:</div>
-                      <div className="prose prose-sm max-w-none whitespace-pre-wrap text-gray-700 mb-4 ml-2">
+                    <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-900/50">
+                      <div className="font-medium text-gray-800 dark:text-gray-200 mb-2">Question {index + 1}:</div>
+                      <div className="prose prose-sm max-w-none whitespace-pre-wrap text-gray-700 dark:text-gray-300 mb-4 ml-2">
                         {answer.split('\n\n').map((paragraph, i) => (
                           <p key={i} className="mb-2" dangerouslySetInnerHTML={{ __html: paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                         ))}
                       </div>
                       <button
-                        className="text-blue-600 text-sm font-medium hover:text-blue-800 flex items-center"
+                        className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:text-blue-800 dark:hover:text-blue-300 flex items-center"
                         onClick={() => {
                           navigator.clipboard.writeText(answer);
                           toast.success('Answer copied to clipboard!');
