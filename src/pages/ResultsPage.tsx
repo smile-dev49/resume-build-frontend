@@ -173,10 +173,10 @@ const ResultsPage = () => {
         {activeTab === 'answers' && (
           <div className="space-y-8">
             {/* Cover Letter Section */}
+            
             {data.cover_letter_url && (
               <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Cover Letter</h2>
+                <div className="flex items-center justify-between gap-3 mb-4">
                   <a
                     href={apiService.downloadUrl(data.cover_letter_url, true)}
                     target="_blank" 
@@ -187,19 +187,6 @@ const ResultsPage = () => {
                     <DownloadIcon />
                     Download PDF
                   </a>
-                </div>
-                
-                <div id="cover-letter-content" className="prose prose-sm max-w-none border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-                  {loadingCoverLetter ? (
-                    <p className="text-center text-gray-500 dark:text-gray-400">Loading cover letter content...</p>
-                  ) : coverLetterContent ? (
-                    renderMarkdown(coverLetterContent)
-                  ) : (
-                    <p className="text-center text-gray-500 dark:text-gray-400">No cover letter content available</p>
-                  )}
-                </div>
-                
-                <div className="flex justify-end mt-4">
                   <button
                     className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:text-blue-800 dark:hover:text-blue-300 flex items-center"
                     onClick={() => {
@@ -220,6 +207,16 @@ const ResultsPage = () => {
                     </svg>
                     Copy to clipboard
                   </button>
+                </div>
+                
+                <div id="cover-letter-content" className="prose prose-sm max-w-none border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                  {loadingCoverLetter ? (
+                    <p className="text-center text-gray-500 dark:text-gray-400">Loading cover letter content...</p>
+                  ) : coverLetterContent ? (
+                    renderMarkdown(coverLetterContent)
+                  ) : (
+                    <p className="text-center text-gray-500 dark:text-gray-400">No cover letter content available</p>
+                  )}
                 </div>
               </div>
             )}
