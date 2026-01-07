@@ -24,7 +24,7 @@ const JobSubmissionPage = () => {
     defaultValues: {
       job_description: '',
       questions: [''],
-      template: '',
+      template: 'alvaro.json',
       language: 'en',
       // Default: create cover letter only
       cover_letter_only: true,
@@ -59,7 +59,6 @@ const JobSubmissionPage = () => {
         language: data.language || 'en',
         cover_letter_only: data.cover_letter_only ?? true,
       }
-
       const response = await apiService.post('/tailor-resume', jobData)
 
       // Navigate to results page
@@ -103,6 +102,7 @@ const JobSubmissionPage = () => {
                   {...register('template', { required: 'Template selection is required' })}
                 >
                   {templates.map((template) => (
+                    console.log(template),
                     <option key={template} value={template}>
                       {template}
                     </option>
@@ -131,10 +131,7 @@ const JobSubmissionPage = () => {
                   <select
                     id="cover_letter_only"
                     className="input-field"
-                    {...register('cover_letter_only', {
-                      // Map string value from select to boolean
-                      setValueAs: (value) => value === 'true',
-                    })}
+                   defaultValue="true"
                   >
                     <option value="true">Cover letter only</option>
                     <option value="false">Resume + cover letter</option>
