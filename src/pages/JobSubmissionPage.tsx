@@ -131,7 +131,10 @@ const JobSubmissionPage = () => {
                   <select
                     id="cover_letter_only"
                     className="input-field"
-                   defaultValue="true"
+                    {...register('cover_letter_only', {
+                      setValueAs: (value) => value === 'true'
+                    })}
+                    defaultValue="true"
                   >
                     <option value="true">Cover letter only</option>
                     <option value="false">Resume + cover letter</option>
