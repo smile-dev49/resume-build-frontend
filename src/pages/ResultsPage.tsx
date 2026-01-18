@@ -107,11 +107,6 @@ const ResultsPage = () => {
         <p className="text-gray-600 dark:text-gray-400">
           Your resume, cover letter, and answers have been tailored to match the job description
         </p>
-        {data.language && (
-          <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
-            Output language: {data.language === 'ja' ? 'Japanese' : data.language === 'uk' ? 'Ukrainian' : 'English'}
-          </p>
-        )}
       </div>
 
       {/* Tabs */}

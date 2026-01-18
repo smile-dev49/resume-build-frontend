@@ -25,7 +25,6 @@ const JobSubmissionPage = () => {
       job_description: '',
       questions: [''],
       template: 'alvaro.json',
-      language: 'en',
       // Default: create cover letter only
       cover_letter_only: true,
     },
@@ -56,7 +55,6 @@ const JobSubmissionPage = () => {
         questions: filteredQuestions.length > 0 ? filteredQuestions : undefined,
         return_json: false,
         template: data.template,
-        language: data.language || 'en',
         cover_letter_only: data.cover_letter_only ?? true,
       }
       const response = await apiService.post('/tailor-resume', jobData)
@@ -109,37 +107,21 @@ const JobSubmissionPage = () => {
                   ))}
                 </select>
               </div>
-              <div className="mb-4 grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="language">
-                    Output language
-                  </label>
-                  <select
-                    id="language"
-                    className="input-field"
-                    {...register('language')}
-                  >
-                    <option value="en">English</option>
-                    <option value="ja">日本語 (Japanese)</option>
-                    <option value="uk">Українська (Ukrainian)</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="cover_letter_only">
-                    Document output
-                  </label>
-                  <select
-                    id="cover_letter_only"
-                    className="input-field"
-                    {...register('cover_letter_only', {
-                      setValueAs: (value) => value === 'true'
-                    })}
-                    defaultValue="true"
-                  >
-                    <option value="true">Cover letter only</option>
-                    <option value="false">Resume + cover letter</option>
-                  </select>
-                </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2" htmlFor="cover_letter_only">
+                  Document output
+                </label>
+                <select
+                  id="cover_letter_only"
+                  className="input-field"
+                  {...register('cover_letter_only', {
+                    setValueAs: (value) => value === 'true'
+                  })}
+                  defaultValue="true"
+                >
+                  <option value="true">Cover letter only</option>
+                  <option value="false">Resume + cover letter</option>
+                </select>
               </div>
 
               <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Job Description</h2>
